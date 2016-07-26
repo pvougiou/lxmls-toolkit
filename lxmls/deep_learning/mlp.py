@@ -117,8 +117,8 @@ class NumpyMLP:
             if n != self.n_layers-1:
                 W_next = self.params[2*(n+1)]
 
-           # Complete Exercise 6.2 
-           raise NotImplementedError("Complete Exercise 6.2")
+           # Complete Exercise 5.2 
+           raise NotImplementedError("Complete Exercise 5.2")
 
            # Store the gradients 
            nabla_params[2*n]   = nabla_W
@@ -296,34 +296,8 @@ class TheanoMLP(NumpyMLP):
             # Input
         tilde_z = x
 
-        # ----------
-        # Solution to Exercise 6.4
-        for n in range(self.n_layers):
-
-            # Get weigths and bias (always in even and odd positions)
-            W = self.params[2*n]
-            b = self.params[2*n+1]
-
-            # Linear transformation
-            z = T.dot(W, tilde_z) + b
-
-            # Keep in mind that naming variables is useful when debugging
-            # see e.g. theano.printing.debugprint(tilde_z)
-            z.name = 'z%d' % (n+1)
-
-            # Non-linear transformation
-            if self.actvfunc[n] == "sigmoid":
-                tilde_z = T.nnet.sigmoid(z)
-            elif self.actvfunc[n] == "softmax":
-                tilde_z = T.nnet.softmax(z.T).T
-
-            # Name variable
-            tilde_z.name = 'tilde_z%d' % (n+1)
-
-            if all_outputs:
-                activations.append(tilde_z)
-        # End of solution to Exercise 6.4
-        # ----------
+        # Complete Exercise 5.3 
+        raise NotImplementedError("Complete Exercise 5.3")
 
         if all_outputs:
             tilde_z = activations
