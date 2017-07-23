@@ -27,7 +27,6 @@ class SequenceClassificationDecoder:
 
         # Initialization.
         forward[0, :] = emission_scores[0, :] + initial_scores
-
         # Forward loop.
         for pos in xrange(1, length):
             for current_state in xrange(num_states):
@@ -95,8 +94,27 @@ class SequenceClassificationDecoder:
         # Most likely sequence.
         best_path = -np.ones(length, dtype=int)
 
-        # Complete Exercise 2.8 
-        raise NotImplementedError("Complete Exercise 2.8")
+        # Initialization.
+        viterbi_scores[0, :] = emission_scores[0, :] + initial_scores
+        
+
+        for pos in xrange(1, length):
+            for current_state in xrange(num_states):
+                # Note the fact that multiplication in log domain turns a sum and sum turns a logsum
+                tempScores = viterbi_scores[pos-1, :] + transition_scores[pos-1, current_state, :]
+                viterbi_scores[pos, current_state] = np.max(tempScores)
+                viterbi_scores[pos, current_state] += emission_scores[pos, current_state]
+                viterbi_paths[pos, current_state] = np.argmax(tempScores)
+        # Complete Exercise 2.8
+
+        print viterbi_scores
+        tempScores = viterbi_scores[length-1, :] + final_scores
+        best_score = np.max(tempScores)
+        best_path[-1] = np.argmax(tempScores)
+
+        for pos in xrange(length-2, -1, -1):
+            best_path[pos] = viterbi_paths[pos + 1, best_path[pos + 1]]
+        # raise NotImplementedError("Complete Exercise 2.8")
 
         #### Little guide of the implementation ####################################
         # Initializatize the viterbi scores
