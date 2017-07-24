@@ -107,7 +107,7 @@ class SequenceClassificationDecoder:
                 viterbi_paths[pos, current_state] = np.argmax(tempScores)
         # Complete Exercise 2.8
 
-        print viterbi_scores
+        # print viterbi_scores
         tempScores = viterbi_scores[length-1, :] + final_scores
         best_score = np.max(tempScores)
         best_path[-1] = np.argmax(tempScores)
